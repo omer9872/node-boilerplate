@@ -1,15 +1,30 @@
-import 'reflect-metadata';
 import { Container } from "inversify";
-import TYPES from "./types/types";
-import { Repository } from './dev/Repository';
-import { PostFeature } from './features/Post.feature';
-import { PostService } from './services/Post.service';
-import { PostController } from './controllers/Post.controller';
-import { PostRoutes } from './routes/Post.routes';
-import { IController, IFeature, IRoutes } from './dev/types';
-import { Routes } from './dev/Routes';
+import { DBName, MongoURL } from "./ENV";
+
+import { BaseMongoRepository, IMongoRepository } from "./repositories";
+import { IController, PostController } from "./controller";
+import { IRouter, PostRouter } from "./routers";
+import { IService, PostService } from "./services";
+
+import TYPES from "./TYPES";
 
 const container = new Container();
-container.bind<IRoutes>(TYPES.PostRoutes).to(PostRoutes);
+/* bind dependicies... */
+container.bind<IRouter>(TYPES.PostRouter).to(PostRouter);
+container.bind<IController>(TYPES.PostController).to(PostController);
+container.bind<IService>(TYPES.PostService).to(PostService);
+container.bind<IMongoRepository>(TYPES.MongoRepository).to(BaseMongoRepository);
 
-export { container }
+/* constants... */
+container.bind<string>(TYPES.PostControllerName).toConstantValue("post-controller");
+container.bind<string>(TYPES.PostRouterName).toConstantValue("post-router");
+container.bind<string>(TYPES.PostRouterName).toConstantValue("post-service");
+container.bind<string>(TYPES.MongoURL).toConstantValue(MongoURL);
+container.bind<string>(TYPES.DBName).toConstantValue(DBName);
+
+// var postController = container.get<IController>(TYPES.PostController);
+// var postService = container.get<IService>(TYPES.PostService);
+// var postRouter = container.get<IRouter>(TYPES.PostRouter);
+// var repo = container.get<IMongoRepository>(TYPES.MongoRepository);
+
+export default container;
