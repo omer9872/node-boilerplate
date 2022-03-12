@@ -1,9 +1,9 @@
 import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
-import { Collection, Db, MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 import { IMongoRepository } from "./interfaces";
-import TYPES from "../TYPES";
+import { collectionTypes } from "../TYPES";
 
 @injectable()
 export class BaseMongoRepository implements IMongoRepository {
@@ -12,21 +12,27 @@ export class BaseMongoRepository implements IMongoRepository {
   dbName: string;
   db: Db;
 
-  constructor(@inject(TYPES.MongoURL) connectionString: string, @inject(TYPES.DBName) dbName: string) {
+  constructor(@inject(collectionTypes.MongoURL) connectionString: string, @inject(collectionTypes.DBName) dbName: string) {
     this.connectionString = connectionString;
     this.dbName = dbName;
-    this.initDB();
   }
 
   private initDB = async () => {
     const client = new MongoClient(this.connectionString);
     await client.connect();
-    console.info('successfully connected to mongodb...');
     this.db = client.db(this.dbName);
+    console.log("connected to DB...")
   }
 
-  public getCollection = (collectionName: string): Collection => {
-    return this.db.collection(collectionName);
+  public getDB = (): Promise<Db> => {
+    return new Promise(async (resolve, reject) => {
+      if (this.db) {
+        return resolve(this.db);
+      } else {
+        await this.initDB();
+        return resolve(this.db);
+      }
+    })
   }
 
 }

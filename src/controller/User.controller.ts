@@ -6,12 +6,12 @@ import { BaseController } from ".";
 import { controllerTypes, serviceTypes } from "../TYPES";
 
 @injectable()
-export class PostController extends BaseController {
+export class UserController extends BaseController {
 
   controllerName: string;
 
-  constructor(@inject(controllerTypes.PostControllerName) controllerName: string, @inject(serviceTypes.PostService) postService: BaseService) {
-    super(controllerName, postService);
+  constructor(@inject(controllerTypes.UserControllerName) controllerName: string, @inject(serviceTypes.UserService) userService: BaseService) {
+    super(controllerName, userService);
   }
 
   get getControllerName() {

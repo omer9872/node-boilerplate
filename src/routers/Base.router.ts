@@ -11,10 +11,11 @@ export class BaseRouter implements IRouter {
   router: Router;
   controller: BaseController;
 
-  constructor(controller: BaseController) {
+  constructor(controller: BaseController, routerPath: string) {
     this.router = Router();
     this.controller = controller;
     this.initRoutes();
+    console.log(`Router - ${routerPath} initialized...`)
   }
 
   private initRoutes() {

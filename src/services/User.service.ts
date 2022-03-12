@@ -7,8 +7,8 @@ import { collectionTypes } from "../TYPES";
 import serviceTypes from "./types";
 
 @injectable()
-export class PostService extends BaseService {
-  constructor(@inject(collectionTypes.PostCollection) collection: BaseMongoCollection, @inject(serviceTypes.PostServiceName) serviceName: string) {
+export class UserService extends BaseService {
+  constructor(@inject(collectionTypes.UserCollection) collection: BaseMongoCollection, @inject(serviceTypes.UserServiceName) serviceName: string) {
     super(collection, serviceName);
   }
 }

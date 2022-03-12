@@ -1,11 +1,11 @@
-import { BaseMongoRepository } from "../repositories";
 import { ObjectId } from "mongodb";
+import { BaseMongoCollection } from "../collections/BaseMongo.collection";
 
 export interface IService {
-  repository: BaseMongoRepository
-  get: (page: number, count: number) => void
-  getOne: (id: ObjectId) => void
-  insert: () => void
-  update: () => void
-  delete: () => void
+  baseCollection: BaseMongoCollection
+  get: (page: number, count: number) => Promise<Array<any>>
+  getOne: (id: ObjectId) => Promise<any>
+  insert: (document: any) => Promise<any>
+  update: (id: ObjectId, updatedFields: any) => Promise<any>
+  delete: (id: ObjectId) => Promise<any>
 }
