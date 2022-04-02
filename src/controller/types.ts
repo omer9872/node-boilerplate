@@ -1,4 +1,8 @@
 const controllerTypes = {
+
+  /* Auth Controller... */
+  AuthController: Symbol("AuthController"),
+  AuthControllerName: Symbol("auth-controller"),
  
   /* Post Controller... */
   PostController: Symbol("PostController"),

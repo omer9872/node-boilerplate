@@ -10,11 +10,18 @@ import { routerTypes, controllerTypes, serviceTypes, collectionTypes } from "./T
 import { PostCollection } from "./collections/Post.collection";
 import { UserCollection } from "./collections/User.collection";
 
-const container = new Container();
+import { AuthService, IAuthService, ISessionService, SessionService } from "./auth";
+import { AuthRouter } from "./routers/Auth.router";
+import { AuthController } from "./controller/Auth.controller";
 
+const container = new Container();
 /* bind dependicies... */
-/* Repository... */
-container.bind<IMongoRepository>(collectionTypes.MongoRepository).to(BaseMongoRepository);
+/* AUTH... */
+container.bind<IRouter>(routerTypes.AuthRouter).to(AuthRouter);
+container.bind<IController>(controllerTypes.AuthController).to(AuthController);
+container.bind<IAuthService>(serviceTypes.AuthService).to(AuthService);
+container.bind<ISessionService>(serviceTypes.SessionService).to(SessionService);
+
 /* User Feature... */
 container.bind<IRouter>(routerTypes.UserRouter).to(UserRouter);
 container.bind<IController>(controllerTypes.UserController).to(UserController);
@@ -25,8 +32,10 @@ container.bind<IRouter>(routerTypes.PostRouter).to(PostRouter);
 container.bind<IController>(controllerTypes.PostController).to(PostController);
 container.bind<IService>(serviceTypes.PostService).to(PostService);
 container.bind<IMongoCollection>(collectionTypes.PostCollection).to(PostCollection);
+/* Repository... */
+container.bind<IMongoRepository>(collectionTypes.MongoRepository).to(BaseMongoRepository);
 
-/* constants... */
+/* CONSTANTS... */
 /* Post Constants... */
 container.bind<string>(controllerTypes.PostControllerName).toConstantValue("post-controller");
 container.bind<string>(routerTypes.PostRouterName).toConstantValue("post-router");
@@ -37,6 +46,9 @@ container.bind<string>(controllerTypes.UserControllerName).toConstantValue("user
 container.bind<string>(routerTypes.UserRouterName).toConstantValue("user-router");
 container.bind<string>(serviceTypes.UserServiceName).toConstantValue("user-service");
 container.bind<string>(collectionTypes.UserCollectionName).toConstantValue("users");
+/* Auth Constants... */
+container.bind<string>(controllerTypes.AuthControllerName).toConstantValue("auth-controller");
+container.bind<string>(routerTypes.AuthRouterName).toConstantValue("auth-router");
 
 container.bind<string>(collectionTypes.MongoURL).toConstantValue(MongoURL);
 container.bind<string>(collectionTypes.DBName).toConstantValue(DBName);

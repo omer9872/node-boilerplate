@@ -10,12 +10,15 @@ import routerTypes from "./types";
 @injectable()
 export class PostRouter extends BaseRouter {
 
+  static initRoutes = true;
+  static isAuth = true;
+
   private path: string = "/post";
   router: Router;
   controller: BaseController;
 
   constructor(@inject(controllerTypes.PostController) controller: BaseController, @inject(routerTypes.PostRouterName) routerName: string) {
-    super(controller, routerName);
+    super(routerName, controller, PostRouter.isAuth, PostRouter.initRoutes);
     this.router = this.getRoute();
     this.controller = controller;
   }

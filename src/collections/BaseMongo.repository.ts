@@ -21,7 +21,6 @@ export class BaseMongoRepository implements IMongoRepository {
     const client = new MongoClient(this.connectionString);
     await client.connect();
     this.db = client.db(this.dbName);
-    console.log("connected to DB...")
   }
 
   public getDB = (): Promise<Db> => {

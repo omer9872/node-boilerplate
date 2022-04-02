@@ -15,7 +15,6 @@ export class BaseController implements IController {
   constructor(controllerName: string, service: BaseService) {
     this.controllerName = controllerName;
     this.service = service;
-    console.log(`Controller - ${this.controllerName} initialized...`)
   }
 
   get = async (req: Request, res: Response) => {

@@ -22,7 +22,6 @@ export class BaseMongoCollection implements IMongoCollection {
   private initCollection = async () => {
     const db: Db = await this.mongoRepository.getDB()
     this.collection = db.collection(this.collectionName);
-    console.log(`Collection - ${this.collectionName} initialized...`)
   }
 
 }

@@ -1,9 +1,12 @@
-import { injectable } from "inversify";
+import { inject, injectable, unmanaged } from "inversify";
 import "reflect-metadata";
 
 import { Router } from "express";
 import { BaseController } from "../controller";
 import { IRouter } from "./interfaces";
+import { AuthService, IAuthService } from "../auth";
+import container from "../container";
+import serviceTypes from "../services/types";
 
 @injectable()
 export class BaseRouter implements IRouter {
@@ -11,11 +14,25 @@ export class BaseRouter implements IRouter {
   router: Router;
   controller: BaseController;
 
-  constructor(controller: BaseController, routerPath: string) {
+  constructor(
+    routerPath: string,
+    @unmanaged() controller: BaseController,
+    @unmanaged() isAuth: boolean = true,
+    @unmanaged() initializeRoutes: boolean = true
+  ) {
     this.router = Router();
     this.controller = controller;
-    this.initRoutes();
-    console.log(`Router - ${routerPath} initialized...`)
+    if (isAuth) {
+      this.initAuth();
+    }
+    if (initializeRoutes && controller) {
+      this.initRoutes();
+    }
+  }
+
+  private initAuth() {
+    const authService: AuthService = container.get<IAuthService>(serviceTypes.AuthService);
+    this.router.use(authService.checkAuth);
   }
 
   private initRoutes() {
