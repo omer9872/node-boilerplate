@@ -22,8 +22,12 @@ export class AuthController extends BaseController {
 
   login = async (req: Request, res: Response) => {
     const user: ILoginUser = req.body;
-    const loginResult = await this.authService.login(req, user);
-    res.sendStatus(loginResult ? 200 : 404)
+    const token = await this.authService.login(req, user);
+    if (token) {
+      res.status(200).json({ token })
+    } else {
+      res.sendStatus(404)
+    }
   }
 
   logout = (req: Request, res: Response) => {
@@ -34,7 +38,8 @@ export class AuthController extends BaseController {
 
   register = (req: Request, res: Response) => {
     const user: IRegisterUser = req.body;
-    this.authService.register(user)
+    this.authService.register(user);
+    res.sendStatus(200)
   }
 
   get getControllerName() {

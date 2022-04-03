@@ -18,17 +18,19 @@
   },
   "homepage": "https://github.com/omer9872/node-boilerplate#readme",
   "dependencies": {
-    "@types/express-session": "^1.17.4",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "inversify": "^6.0.1",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.4.1",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/express-session": "^1.17.4",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.21",
     "ts-node": "^10.6.0",
     "ts-node-dev": "^1.1.8",

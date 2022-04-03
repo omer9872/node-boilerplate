@@ -10,9 +10,10 @@ import { routerTypes, controllerTypes, serviceTypes, collectionTypes } from "./T
 import { PostCollection } from "./collections/Post.collection";
 import { UserCollection } from "./collections/User.collection";
 
-import { AuthService, IAuthService, ISessionService, SessionService } from "./auth";
+import { AuthService, IAuthService, IJWTService, ISessionService, SessionService } from "./auth";
 import { AuthRouter } from "./routers/Auth.router";
 import { AuthController } from "./controller/Auth.controller";
+import { JWTService } from "./auth/JWT.service";
 
 const container = new Container();
 /* bind dependicies... */
@@ -20,7 +21,9 @@ const container = new Container();
 container.bind<IRouter>(routerTypes.AuthRouter).to(AuthRouter);
 container.bind<IController>(controllerTypes.AuthController).to(AuthController);
 container.bind<IAuthService>(serviceTypes.AuthService).to(AuthService);
+
 container.bind<ISessionService>(serviceTypes.SessionService).to(SessionService);
+container.bind<IJWTService>(serviceTypes.JWTService).to(JWTService);
 
 /* User Feature... */
 container.bind<IRouter>(routerTypes.UserRouter).to(UserRouter);

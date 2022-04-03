@@ -9,7 +9,7 @@ import { ISessionService } from ".";
 import { MongoURL, DBName } from "../ENV";
 import { Request } from "express";
 import { ObjectId } from "mongodb";
-import { ILoginUser, User } from "../models";
+import { ILoginUser } from "../models";
 
 declare module 'express-session' {
   interface SessionData {

@@ -8,6 +8,10 @@ const serviceTypes = {
   SessionService: Symbol("SessionService"),
   SessionServiceName: Symbol("session-service"),
 
+  /* JsonWebToken Service... */
+  JWTService: Symbol("JWTService"),
+  JWTServiceName: Symbol("jwt-service"),
+
   /* Post Service... */
   PostService: Symbol("PostService"),
   PostServiceName: Symbol("post-service"),
@@ -15,7 +19,7 @@ const serviceTypes = {
   /* User Service... */
   UserService: Symbol("UserService"),
   UserServiceName: Symbol("user-service"),
-  
+
 };
 
 export default serviceTypes;
