@@ -1,8 +1,9 @@
 import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
-import { BaseService } from "../services";
-import { BaseController } from ".";
+import { BaseController } from "@base/controller";
+import { BaseService } from "@base/service";
+
 import { controllerTypes, serviceTypes } from "../TYPES";
 
 @injectable()

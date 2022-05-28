@@ -1,2 +1,2 @@
-export * from './interfaces'
-export * from './BaseMongo.repository';
+export * from './Post.collection'
+export * from './User.collection'

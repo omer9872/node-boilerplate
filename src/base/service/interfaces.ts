@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { BaseMongoCollection } from "../collections/BaseMongo.collection";
+import { BaseMongoCollection } from "../repository/BaseMongo.collection";
 
 export interface IService {
   baseCollection: BaseMongoCollection

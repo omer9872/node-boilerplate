@@ -1,4 +1,3 @@
-export * from './interfaces';
-export * from './Base.router';
+export * from '../base/router/interfaces';
 export * from './Post.router';
 export * from './User.router';

@@ -3,12 +3,12 @@ require('dotenv').config()
 
 import { routerTypes } from "./TYPES";
 import container from "./container";
-import { IRouter } from "./routers/interfaces";
+import { IRouter } from "./base/router/interfaces";
 import { ISessionService } from "./auth";
 import serviceTypes from "./services/types";
 
 // const authRouter = container.get<IRouter>(routerTypes.AuthRouter);
-const sessionService = container.get<ISessionService>(serviceTypes.SessionService);
+// const sessionService = container.get<ISessionService>(serviceTypes.SessionService);
 
 const authRouter = container.get<IRouter>(routerTypes.AuthRouter);
 const postRouter = container.get<IRouter>(routerTypes.PostRouter);
@@ -18,7 +18,7 @@ const app = express();
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(sessionService.session);
+// app.use(sessionService.session);
 app.use(authRouter.getPath(), authRouter.getRoute())
 app.use(postRouter.getPath(), postRouter.getRoute())
 app.use(userRouter.getPath(), userRouter.getRoute())

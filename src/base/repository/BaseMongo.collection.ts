@@ -3,7 +3,7 @@ import "reflect-metadata";
 
 import { Collection, Db } from "mongodb";
 import { IMongoCollection } from "./interfaces";
-import { collectionTypes } from "../TYPES";
+import { baseCollectionTypes } from "./types";
 import { BaseMongoRepository } from "./BaseMongo.repository";
 
 @injectable()
@@ -13,7 +13,7 @@ export class BaseMongoCollection implements IMongoCollection {
   collectionName: string;
   collection: Collection;
 
-  constructor(@inject(collectionTypes.MongoRepository) mongoRepository: BaseMongoRepository, collectionName: string) {
+  constructor(@inject(baseCollectionTypes.MongoRepository) mongoRepository: BaseMongoRepository, collectionName: string) {
     this.mongoRepository = mongoRepository;
     this.collectionName = collectionName;
     this.initCollection();

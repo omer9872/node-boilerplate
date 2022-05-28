@@ -1,13 +1,14 @@
 import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
-import { collectionTypes } from "../TYPES";
-import { BaseMongoRepository } from "./BaseMongo.repository";
-import { BaseMongoCollection } from "./BaseMongo.collection";
+import { BaseMongoCollection, BaseMongoRepository } from '@base/repository'
+import { baseCollectionTypes } from "@base/repository/types";
+
+import collectionTypes from "./types";
 
 @injectable()
 export class UserCollection extends BaseMongoCollection {
-  constructor(@inject(collectionTypes.MongoRepository) mongoRepository: BaseMongoRepository, @inject(collectionTypes.UserCollectionName) collectionName: string) {
+  constructor(@inject(baseCollectionTypes.MongoRepository) mongoRepository: BaseMongoRepository, @inject(collectionTypes.UserCollectionName) collectionName: string) {
     super(mongoRepository, collectionName);
   }
 }

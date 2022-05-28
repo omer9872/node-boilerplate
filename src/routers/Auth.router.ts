@@ -2,9 +2,11 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 import { Router } from "express";
-import { BaseRouter } from ".";
-import { controllerTypes, routerTypes } from "../TYPES";
-import { AuthController } from "../controller/Auth.controller";
+
+import { BaseRouter } from "@base/router";
+import { AuthController } from "@controller/Auth.controller";
+
+import { routerTypes, controllerTypes } from "../TYPES";
 
 @injectable()
 export class AuthRouter extends BaseRouter {

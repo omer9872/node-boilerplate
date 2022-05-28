@@ -1,12 +1,14 @@
-import { inject, injectable, unmanaged } from "inversify";
+import { injectable, unmanaged } from "inversify";
 import "reflect-metadata";
 
 import { Router } from "express";
-import { BaseController } from "../controller";
+
+import { BaseController } from "@base/controller";
+
 import { IRouter } from "./interfaces";
-import { AuthService, IAuthService } from "../auth";
-import container from "../container";
-import serviceTypes from "../services/types";
+import { AuthService, IAuthService } from "../../auth";
+import container from "../../container";
+import serviceTypes from "../../services/types";
 
 @injectable()
 export class BaseRouter implements IRouter {

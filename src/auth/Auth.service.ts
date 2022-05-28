@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 import 'reflect-metadata';
 
 import { NextFunction, Request, Response } from "express";
+
 import { IAuthService } from ".";
 import { ILoginUser, ILogoutUser, IRegisterUser } from "../models";
 import { UserService } from "../services";
@@ -9,22 +10,19 @@ import serviceTypes from "../services/types";
 import { SessionService } from "./Session.service";
 import { JWTService } from "./JWT.service";
 
-
-
 @injectable()
 export class AuthService implements IAuthService {
 
   userService: UserService;
-  sessionService: SessionService;
+  //sessionService: SessionService;
   jwtService: JWTService;
-  constructor(@inject(serviceTypes.UserService) userService: UserService, @inject(serviceTypes.SessionService) sessionService: SessionService, @inject(serviceTypes.JWTService) jwtService: JWTService) {
+  constructor(@inject(serviceTypes.UserService) userService: UserService/*, @inject(serviceTypes.SessionService) sessionService: SessionService*/, @inject(serviceTypes.JWTService) jwtService: JWTService) {
     this.userService = userService;
-    this.sessionService = sessionService;
+    //this.sessionService = sessionService;
     this.jwtService = jwtService;
   }
 
   checkAuth = (req: Request, res: Response, next: NextFunction): any => {
-    console.log(req.session);
     if (req.session.email) {
       next();
     } else {
@@ -48,7 +46,7 @@ export class AuthService implements IAuthService {
   };
 
   logout = (req: Request, tokenData: ILogoutUser) => {
-    this.sessionService.delete(req);
+    //this.sessionService.delete(req);
     return tokenData.token;
   };
 

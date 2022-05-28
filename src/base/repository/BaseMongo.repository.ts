@@ -3,7 +3,7 @@ import "reflect-metadata";
 
 import { Db, MongoClient } from "mongodb";
 import { IMongoRepository } from "./interfaces";
-import { collectionTypes } from "../TYPES";
+import { baseCollectionTypes } from "./types";
 
 @injectable()
 export class BaseMongoRepository implements IMongoRepository {
@@ -12,7 +12,7 @@ export class BaseMongoRepository implements IMongoRepository {
   dbName: string;
   db: Db;
 
-  constructor(@inject(collectionTypes.MongoURL) connectionString: string, @inject(collectionTypes.DBName) dbName: string) {
+  constructor(@inject(baseCollectionTypes.MongoURL) connectionString: string, @inject(baseCollectionTypes.DBName) dbName: string) {
     this.connectionString = connectionString;
     this.dbName = dbName;
   }

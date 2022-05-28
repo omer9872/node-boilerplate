@@ -1,5 +1,5 @@
 import { Collection, Db } from "mongodb";
-import { BaseMongoRepository } from ".";
+import { BaseMongoRepository } from "./BaseMongo.repository";
 
 export interface IMongoRepository {
   connectionString: string;

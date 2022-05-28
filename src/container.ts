@@ -1,19 +1,20 @@
 import { Container } from "inversify";
-import { DBName, MongoURL } from "./ENV";
 
-import { BaseMongoRepository, IMongoCollection, IMongoRepository } from "./collections";
-import { IController, PostController, UserController } from "./controller";
-import { IRouter, PostRouter, UserRouter } from "./routers";
-import { IService, PostService, UserService } from "./services";
+import { baseCollectionTypes, BaseMongoRepository, IMongoCollection, IMongoRepository } from "@base/repository";
+import { IController } from "@base/controller";
+import { IService } from "@base/service";
+import { PostController, UserController } from "@controller/index";
+import { PostService, UserService } from "@services/index";
+import { IRouter, PostRouter, UserRouter } from "@routers/index";
+import { PostCollection, UserCollection } from "@collections/index";
 
 import { routerTypes, controllerTypes, serviceTypes, collectionTypes } from "./TYPES";
-import { PostCollection } from "./collections/Post.collection";
-import { UserCollection } from "./collections/User.collection";
+import { DBName, MongoURL } from "./ENV";
 
-import { AuthService, IAuthService, IJWTService, ISessionService, SessionService } from "./auth";
-import { AuthRouter } from "./routers/Auth.router";
-import { AuthController } from "./controller/Auth.controller";
-import { JWTService } from "./auth/JWT.service";
+import { AuthService, IAuthService, IJWTService } from "@auth/index";
+import { AuthRouter } from "@routers/Auth.router";
+import { AuthController } from "@controller/Auth.controller";
+import { JWTService } from "@auth/JWT.service";
 
 const container = new Container();
 /* bind dependicies... */
@@ -22,7 +23,7 @@ container.bind<IRouter>(routerTypes.AuthRouter).to(AuthRouter);
 container.bind<IController>(controllerTypes.AuthController).to(AuthController);
 container.bind<IAuthService>(serviceTypes.AuthService).to(AuthService);
 
-container.bind<ISessionService>(serviceTypes.SessionService).to(SessionService);
+//container.bind<ISessionService>(serviceTypes.SessionService).to(SessionService);
 container.bind<IJWTService>(serviceTypes.JWTService).to(JWTService);
 
 /* User Feature... */
@@ -36,7 +37,7 @@ container.bind<IController>(controllerTypes.PostController).to(PostController);
 container.bind<IService>(serviceTypes.PostService).to(PostService);
 container.bind<IMongoCollection>(collectionTypes.PostCollection).to(PostCollection);
 /* Repository... */
-container.bind<IMongoRepository>(collectionTypes.MongoRepository).to(BaseMongoRepository);
+container.bind<IMongoRepository>(baseCollectionTypes.MongoRepository).to(BaseMongoRepository);
 
 /* CONSTANTS... */
 /* Post Constants... */
@@ -53,7 +54,7 @@ container.bind<string>(collectionTypes.UserCollectionName).toConstantValue("user
 container.bind<string>(controllerTypes.AuthControllerName).toConstantValue("auth-controller");
 container.bind<string>(routerTypes.AuthRouterName).toConstantValue("auth-router");
 
-container.bind<string>(collectionTypes.MongoURL).toConstantValue(MongoURL);
-container.bind<string>(collectionTypes.DBName).toConstantValue(DBName);
+container.bind<string>(baseCollectionTypes.MongoURL).toConstantValue(MongoURL);
+container.bind<string>(baseCollectionTypes.DBName).toConstantValue(DBName);
 
 export default container;

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { BaseService } from "../services";
+
+import { BaseService } from "@base/service";
 
 export interface IMiddleware {
   handleMiddleware: (req: Request, res: Response, next: NextFunction) => NextFunction

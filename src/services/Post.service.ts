@@ -1,10 +1,10 @@
 import { inject, injectable } from "inversify";
 import 'reflect-metadata';
 
-import { BaseService } from ".";
-import { BaseMongoCollection } from "../collections/BaseMongo.collection";
-import { collectionTypes } from "../TYPES";
-import serviceTypes from "./types";
+import { BaseService } from "@base/service";
+import { BaseMongoCollection } from "@base/repository";
+
+import { collectionTypes,serviceTypes } from "../TYPES";
 
 @injectable()
 export class PostService extends BaseService {

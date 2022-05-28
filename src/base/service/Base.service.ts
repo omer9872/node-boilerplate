@@ -1,9 +1,10 @@
 import { injectable } from "inversify";
 import 'reflect-metadata';
 
-import { IService } from ".";
 import { ObjectId } from "mongodb";
-import { BaseMongoCollection } from "../collections/BaseMongo.collection";
+
+import { IService } from "./interfaces";
+import { BaseMongoCollection } from "../repository/BaseMongo.collection";
 
 @injectable()
 export class BaseService implements IService {

@@ -1,4 +1,3 @@
-export * from './interfaces'
-export * from './Base.controller'
+export * from './Auth.controller'
 export * from './Post.controller'
 export * from './User.controller'

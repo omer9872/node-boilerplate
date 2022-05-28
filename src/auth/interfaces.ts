@@ -6,7 +6,7 @@ import { JWTService } from "./JWT.service";
 
 export interface IAuthService {
   userService: UserService;
-  sessionService: SessionService;
+  //sessionService: SessionService;
   jwtService: JWTService;
   checkAuth: (req: Request, res: Response, next: NextFunction) => any;
   register: (user: IRegisterUser) => any;

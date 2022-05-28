@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
-import { IUser, UserStatus } from ".";
+
+import { IUser, UserRoles, UserStatus } from ".";
 
 export class User implements IUser {
   _id: ObjectId;
@@ -7,6 +8,7 @@ export class User implements IUser {
   lastName: string;
   email: string;
   password: string;
+  roles: Array<UserRoles>;
   createdAt: Date;
   updatedAt: Date;
   status: UserStatus;

@@ -2,9 +2,11 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 
 import { Request, Response } from "express";
-import { IController } from "./interfaces";
-import { BaseService } from "../services";
 import { ObjectId } from "mongodb";
+
+import { BaseService } from "@base/service";
+
+import { IController } from "./interfaces";
 
 @injectable()
 export class BaseController implements IController {

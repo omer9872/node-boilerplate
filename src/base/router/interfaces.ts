@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { BaseController } from "../controller";
+
+import { BaseController } from "@base/controller";
 
 export interface IRouter {
   router: Router,
