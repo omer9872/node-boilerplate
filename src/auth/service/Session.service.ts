@@ -5,11 +5,10 @@ import { RequestHandler } from "express-serve-static-core";
 import session = require('express-session')
 const MongoStore = require('connect-mongo');
 
-import { ISessionService } from ".";
-import { MongoURL, DBName } from "../ENV";
+import { ISessionService } from "@auth/index";
+import { MongoURL, DBName } from "../../ENV";
 import { Request } from "express";
-import { ObjectId } from "mongodb";
-import { ILoginUser } from "../models";
+import { ILoginUser } from "@models/index";
 
 declare module 'express-session' {
   interface SessionData {

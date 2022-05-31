@@ -4,11 +4,11 @@ import "reflect-metadata";
 import { Router } from "express";
 
 import { BaseController } from "@base/controller";
+import { AuthService, IAuthService } from "@auth/index";
 
 import { IRouter } from "./interfaces";
-import { AuthService, IAuthService } from "../../auth";
+import { authTypes } from "TYPES";
 import container from "../../container";
-import serviceTypes from "../../services/types";
 
 @injectable()
 export class BaseRouter implements IRouter {
@@ -33,7 +33,7 @@ export class BaseRouter implements IRouter {
   }
 
   private initAuth() {
-    const authService: AuthService = container.get<IAuthService>(serviceTypes.AuthService);
+    const authService: AuthService = container.get<IAuthService>(authTypes.AuthService);
     this.router.use(authService.checkAuth);
   }
 

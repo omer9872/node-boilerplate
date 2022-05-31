@@ -1,14 +1,15 @@
 import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
+import { Request, Response } from "express";
+
 import { BaseController } from "@base/controller";
 import { BaseService } from "@base/service";
+import { AuthService, IAuthService } from "@auth/index";
+import { ILoginUser, ILogoutUser, IRegisterUser } from "@models/index";
 
-import { controllerTypes, serviceTypes } from "../TYPES";
-import { AuthService, IAuthService } from "../auth";
-import { Request, Response } from "express";
-import { ILoginUser, ILogoutUser, IRegisterUser } from "../models";
-import container from "../container";
+import { controllerTypes, authTypes } from "../../TYPES";
+import container from "../../container";
 
 @injectable()
 export class AuthController extends BaseController {
@@ -16,14 +17,14 @@ export class AuthController extends BaseController {
   controllerName: string;
   private authService: AuthService;
 
-  constructor(@inject(controllerTypes.AuthControllerName) controllerName: string, @inject(serviceTypes.AuthService) authService: BaseService) {
+  constructor(@inject(controllerTypes.AuthControllerName) controllerName: string, @inject(authTypes.AuthService) authService: BaseService) {
     super(controllerName, authService);
-    this.authService = container.get<IAuthService>(serviceTypes.AuthService);
+    this.authService = container.get<IAuthService>(authTypes.AuthService);
   }
 
   login = async (req: Request, res: Response) => {
     const user: ILoginUser = req.body;
-    const token = await this.authService.login(req, user);
+    const token = await this.authService.login(user);
     if (token) {
       res.status(200).json({ token })
     } else {

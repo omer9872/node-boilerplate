@@ -4,9 +4,9 @@ import "reflect-metadata";
 import { Router } from "express";
 
 import { BaseRouter } from "@base/router";
-import { AuthController } from "@controller/Auth.controller";
+import { AuthController } from "@auth/controller/Auth.controller";
 
-import { routerTypes, controllerTypes } from "../TYPES";
+import { routerTypes, controllerTypes } from "../../TYPES";
 
 @injectable()
 export class AuthRouter extends BaseRouter {

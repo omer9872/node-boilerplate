@@ -3,28 +3,29 @@ import { Container } from "inversify";
 import { baseCollectionTypes, BaseMongoRepository, IMongoCollection, IMongoRepository } from "@base/repository";
 import { IController } from "@base/controller";
 import { IService } from "@base/service";
+import { IRouter } from "@base/router";
 import { PostController, UserController } from "@controller/index";
 import { PostService, UserService } from "@services/index";
-import { IRouter, PostRouter, UserRouter } from "@routers/index";
+import { PostRouter, UserRouter } from "@routers/index";
 import { PostCollection, UserCollection } from "@collections/index";
 
-import { routerTypes, controllerTypes, serviceTypes, collectionTypes } from "./TYPES";
+import { routerTypes, controllerTypes, serviceTypes, authTypes, collectionTypes } from "./TYPES";
 import { DBName, MongoURL } from "./ENV";
 
 import { AuthService, IAuthService, IJWTService } from "@auth/index";
-import { AuthRouter } from "@routers/Auth.router";
-import { AuthController } from "@controller/Auth.controller";
-import { JWTService } from "@auth/JWT.service";
+import { AuthRouter } from "@auth/router/Auth.router";
+import { AuthController } from "@auth/controller/Auth.controller";
+import { JWTService } from "@auth/service/JWT.service";
 
 const container = new Container();
 /* bind dependicies... */
 /* AUTH... */
 container.bind<IRouter>(routerTypes.AuthRouter).to(AuthRouter);
 container.bind<IController>(controllerTypes.AuthController).to(AuthController);
-container.bind<IAuthService>(serviceTypes.AuthService).to(AuthService);
+container.bind<IAuthService>(authTypes.AuthService).to(AuthService);
 
-//container.bind<ISessionService>(serviceTypes.SessionService).to(SessionService);
-container.bind<IJWTService>(serviceTypes.JWTService).to(JWTService);
+//container.bind<ISessionService>(authTypes.SessionService).to(SessionService);
+container.bind<IJWTService>(authTypes.JWTService).to(JWTService);
 
 /* User Feature... */
 container.bind<IRouter>(routerTypes.UserRouter).to(UserRouter);

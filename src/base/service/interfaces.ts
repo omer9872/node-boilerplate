@@ -1,11 +1,11 @@
-import { ObjectId } from "mongodb";
+import { InsertOneResult, ModifyResult, ObjectId, WithId } from "mongodb";
 import { BaseMongoCollection } from "../repository/BaseMongo.collection";
 
 export interface IService {
   baseCollection: BaseMongoCollection
-  get: (page: number, count: number) => Promise<Array<any>>
-  getOne: (id: ObjectId) => Promise<any>
-  insert: (document: any) => Promise<any>
-  update: (id: ObjectId, updatedFields: any) => Promise<any>
-  delete: (id: ObjectId) => Promise<any>
+  get: <T>(page: number, count: number) => Promise<Array<WithId<T>>>
+  getOne: <T>(id: ObjectId) => Promise<WithId<T>>
+  insert: <T>(document: T) => Promise<InsertOneResult<T>>
+  update: <T>(id: ObjectId, updatedFields: T) => Promise<ModifyResult<T>>
+  delete: <T>(id: ObjectId) => Promise<ModifyResult<T>>
 }

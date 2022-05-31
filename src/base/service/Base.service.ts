@@ -1,10 +1,11 @@
 import { injectable } from "inversify";
 import 'reflect-metadata';
 
-import { ObjectId } from "mongodb";
+import { InsertOneResult, ModifyResult, ObjectId, WithId, Document } from "mongodb";
+
+import { BaseMongoCollection } from "@base/repository/BaseMongo.collection";
 
 import { IService } from "./interfaces";
-import { BaseMongoCollection } from "../repository/BaseMongo.collection";
 
 @injectable()
 export class BaseService implements IService {
@@ -14,23 +15,23 @@ export class BaseService implements IService {
     this.baseCollection = baseCollection;
   }
 
-  get = async (page: number, count: number) => {
-    return await this.baseCollection.collection.find({}).toArray();
+  get = async <T>(page: number, count: number) => {
+    return await this.baseCollection.collection.find({}).toArray() as WithId<T>[];
   };
-  getOne = async (id: ObjectId) => {
-    return await this.baseCollection.collection.findOne({ _id: id });
+  getOne = async <T>(id: ObjectId) => {
+    return await this.baseCollection.collection.findOne({ _id: id }) as WithId<T>;
   };
-  insert = async (document: any) => {
+  insert = async <T>(document: any) => {
     try {
-      return await this.baseCollection.collection.insertOne(document)
+      return await this.baseCollection.collection.insertOne(document) as InsertOneResult<T>;
     } catch (error) {
       console.log(error)
     }
   };
-  update = async (id: ObjectId, updatedFields: any) => {
-    return await this.baseCollection.collection.findOneAndUpdate({ _id: id }, { $set: { updatedFields } })
+  update = async <T>(id: ObjectId, updatedFields: any) => {
+    return await this.baseCollection.collection.findOneAndUpdate({ _id: id }, { $set: { updatedFields } }) as unknown as ModifyResult<T>;
   };
-  delete = async (id: ObjectId) => {
-    return await this.baseCollection.collection.findOneAndDelete({ _id: id })
+  delete = async <T>(id: ObjectId) => {
+    return await this.baseCollection.collection.findOneAndDelete({ _id: id }) as unknown as ModifyResult<T>;
   };
 }

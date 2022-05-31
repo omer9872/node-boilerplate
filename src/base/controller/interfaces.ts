@@ -9,9 +9,9 @@ export interface IMiddleware {
 export interface IController {
   controllerName: string;
   service: BaseService;
-  get?: (req: Request, res: Response) => any,
-  getById?: (req: Request, res: Response) => any,
-  insert?: (req: Request, res: Response) => any,
-  update?: (req: Request, res: Response) => any,
-  delete?: (req: Request, res: Response) => any,
+  get?: <T>(req: Request, res: Response) => any,
+  getById?: <T>(req: Request, res: Response) => any,
+  insert?: <T>(req: Request, res: Response) => any,
+  update?: <T>(req: Request, res: Response) => any,
+  delete?: <T>(req: Request, res: Response) => any,
 }

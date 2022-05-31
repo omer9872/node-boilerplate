@@ -4,7 +4,7 @@ import 'reflect-metadata';
 import { BaseService } from "@base/service";
 import { BaseMongoCollection } from "@base/repository";
 
-import { collectionTypes,serviceTypes } from "../TYPES";
+import { collectionTypes, serviceTypes } from "../TYPES";
 
 @injectable()
 export class PostService extends BaseService {

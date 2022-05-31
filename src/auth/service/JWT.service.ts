@@ -1,12 +1,12 @@
 import { injectable } from "inversify";
 import 'reflect-metadata';
 
-import { IJWTService } from ".";
-
 import jwt, { SignOptions, VerifyOptions } from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
-import { ILoginUser } from "../models";
+
+import { IJWTService } from "@auth/index";
+import { ILoginUser } from "@models/index";
 
 @injectable()
 export class JWTService implements IJWTService {
@@ -14,7 +14,7 @@ export class JWTService implements IJWTService {
   static lifeTime: number = 60 * 60;
 
   generateToken = (user: ILoginUser): string => {
-    const privateKey = fs.readFileSync(path.join(__dirname, '..', 'private.key'));
+    const privateKey = fs.readFileSync(path.join(__dirname, '../..', 'private.key'));
     const signOptions: SignOptions = {
       algorithm: 'RS256',
       expiresIn: '1h',
@@ -26,7 +26,7 @@ export class JWTService implements IJWTService {
   };
 
   verifyToken = (token: string): any => {
-    const publicKey = fs.readFileSync(path.join(__dirname, '..', 'public.key'));
+    const publicKey = fs.readFileSync(path.join(__dirname, '../..', 'public.key'));
     const verifyOptions: VerifyOptions = {
       algorithms: ['RS256'],
       issuer: 'sample',

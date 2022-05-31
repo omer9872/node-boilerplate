@@ -2,6 +2,7 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 import { Db, MongoClient } from "mongodb";
+
 import { IMongoRepository } from "./interfaces";
 import { baseCollectionTypes } from "./types";
 

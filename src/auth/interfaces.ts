@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import { SessionService } from ".";
 import { ILoginUser, ILogoutUser, IRegisterUser, User } from "../models";
-import { UserService } from "../services";
-import { JWTService } from "./JWT.service";
+import { UserService } from "@services/index";
+import { JWTService } from "@auth/service/JWT.service";
 
 export interface IAuthService {
   userService: UserService;
@@ -10,9 +9,11 @@ export interface IAuthService {
   jwtService: JWTService;
   checkAuth: (req: Request, res: Response, next: NextFunction) => any;
   register: (user: IRegisterUser) => any;
-  login: (req: Request, user: ILoginUser) => any;
+  login: (user: ILoginUser) => any;
   logout: (req: Request, tokenData: ILogoutUser) => any;
   changePassword: (user: IRegisterUser) => any;
+  checkPassword: (password: string, hash: string) => boolean;
+  hashPassword: (password: string) => string;
 }
 
 export interface ISessionService {
