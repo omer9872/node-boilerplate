@@ -3,13 +3,16 @@ import helmet from 'helmet';
 require('dotenv').config()
 
 import { IRouter } from "@base/router/interfaces";
-import { routerTypes } from "./TYPES";
 import { serverPort } from "ENV";
 import container from "./container";
 
-const authRouter = container.get<IRouter>(routerTypes.AuthRouter);
-const postRouter = container.get<IRouter>(routerTypes.PostRouter);
-const userRouter = container.get<IRouter>(routerTypes.UserRouter);
+import { PostRouter } from "@post/index";
+import { UserRouter } from "@user/index";
+import { AuthRouter } from "@auth/index";
+
+const authRouter = container.get<IRouter>(AuthRouter.name);
+const postRouter = container.get<IRouter>(PostRouter.name);
+const userRouter = container.get<IRouter>(UserRouter.name);
 
 const app = express();
 

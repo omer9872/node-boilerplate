@@ -7,7 +7,6 @@ import { BaseController } from "@base/controller";
 import { AuthService, IAuthService } from "@auth/index";
 
 import { IRouter } from "./interfaces";
-import { authTypes } from "TYPES";
 import container from "../../container";
 
 @injectable()
@@ -33,7 +32,7 @@ export class BaseRouter implements IRouter {
   }
 
   private initAuth() {
-    const authService: AuthService = container.get<IAuthService>(authTypes.AuthService);
+    const authService: AuthService = container.get<IAuthService>("AuthService");
     this.router.use(authService.checkAuth);
   }
 

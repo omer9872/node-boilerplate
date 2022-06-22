@@ -6,9 +6,8 @@ import { Request, Response } from "express";
 import { BaseController } from "@base/controller";
 import { BaseService } from "@base/service";
 import { AuthService, IAuthService } from "@auth/index";
-import { ILoginUser, ILogoutUser, IRegisterUser } from "@models/index";
+import { ILoginUser, ILogoutUser, IRegisterUser } from "@user/index";
 
-import { controllerTypes, authTypes } from "../../TYPES";
 import container from "../../container";
 
 @injectable()
@@ -17,9 +16,9 @@ export class AuthController extends BaseController {
   controllerName: string;
   private authService: AuthService;
 
-  constructor(@inject(controllerTypes.AuthControllerName) controllerName: string, @inject(authTypes.AuthService) authService: BaseService) {
+  constructor(@inject("AuthControllerName") controllerName: string, @inject("AuthService") authService: BaseService) {
     super(controllerName, authService);
-    this.authService = container.get<IAuthService>(authTypes.AuthService);
+    this.authService = container.get<IAuthService>(AuthService.name);
   }
 
   login = async (req: Request, res: Response) => {

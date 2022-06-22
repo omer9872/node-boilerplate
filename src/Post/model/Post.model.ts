@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-import { IPost } from ".";
+import { IPost } from "./interfaces";
 
 export class Post implements IPost {
   _id: ObjectId;

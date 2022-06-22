@@ -4,14 +4,12 @@ import "reflect-metadata";
 import { BaseController } from "@base/controller";
 import { BaseService } from "@base/service";
 
-import { controllerTypes, serviceTypes } from "../TYPES";
-
 @injectable()
 export class UserController extends BaseController {
 
   controllerName: string;
 
-  constructor(@inject(controllerTypes.UserControllerName) controllerName: string, @inject(serviceTypes.UserService) userService: BaseService) {
+  constructor(@inject("UserControllerName") controllerName: string, @inject("UserService") userService: BaseService) {
     super(controllerName, userService);
   }
 

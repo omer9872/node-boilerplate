@@ -8,7 +8,7 @@ const MongoStore = require('connect-mongo');
 import { ISessionService } from "@auth/index";
 import { MongoURL, DBName } from "../../ENV";
 import { Request } from "express";
-import { ILoginUser } from "@models/index";
+import { ILoginUser } from "@user/index";
 
 declare module 'express-session' {
   interface SessionData {

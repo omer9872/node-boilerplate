@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import { ILoginUser, ILogoutUser, IRegisterUser, User } from "../models";
-import { UserService } from "@services/index";
+
+import { IRegisterUser, ILoginUser, ILogoutUser, User, UserService } from "@user/index";
 import { JWTService } from "@auth/service/JWT.service";
 
 export interface IAuthService {

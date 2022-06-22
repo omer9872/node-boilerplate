@@ -33,23 +33,17 @@
       "@base/*": [
         "./base/*"
       ],
-      "@routers/*": [
-        "./routers/*"
+      "@user/*": [
+        "./User/*"
       ],
-      "@controller/*": [
-        "./controller/*"
-      ],
-      "@services/*": [
-        "./services/*"
+      "@post/*": [
+        "./Post/*"
       ],
       "@collections/*": [
         "./collections/*"
       ],
       "@auth/*": [
         "./auth/*"
-      ],
-      "@models/*": [
-        "./models/*"
       ],
     },
   },

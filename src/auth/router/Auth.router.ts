@@ -6,8 +6,6 @@ import { Router } from "express";
 import { BaseRouter } from "@base/router";
 import { AuthController } from "@auth/controller/Auth.controller";
 
-import { routerTypes, controllerTypes } from "../../TYPES";
-
 @injectable()
 export class AuthRouter extends BaseRouter {
 
@@ -18,7 +16,7 @@ export class AuthRouter extends BaseRouter {
   router: Router;
   controller: AuthController;
 
-  constructor(@inject(controllerTypes.AuthController) controller: AuthController, @inject(routerTypes.AuthRouterName) routerName: string) {
+  constructor(@inject("AuthController") controller: AuthController, @inject("AuthRouterName") routerName: string) {
     super(routerName, controller, AuthRouter.isAuth, AuthRouter.initRoutes);
     this.router = this.getRoute();
     this.controller = controller;

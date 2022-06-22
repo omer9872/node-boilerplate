@@ -4,13 +4,11 @@ import 'reflect-metadata';
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcryptjs";
 
-import { UserService } from "@services/index";
-import serviceTypes from "@services/types";
+import { UserService } from "@user/index";
+
 import { IAuthService } from "@auth/interfaces";
 import { JWTService } from "@auth/service/JWT.service";
-import { ILoginUser, ILogoutUser, IRegisterUser, User } from "@models/index";
-
-import { authTypes } from "TYPES";
+import { ILoginUser, ILogoutUser, IRegisterUser, User } from "@user/index";
 
 @injectable()
 export class AuthService implements IAuthService {
@@ -18,7 +16,7 @@ export class AuthService implements IAuthService {
   userService: UserService;
   //sessionService: SessionService;
   jwtService: JWTService;
-  constructor(@inject(serviceTypes.UserService) userService: UserService/*, @inject(serviceTypes.SessionService) sessionService: SessionService*/, @inject(authTypes.JWTService) jwtService: JWTService) {
+  constructor(@inject("UserService") userService: UserService/*, @inject(serviceTypes.SessionService) sessionService: SessionService*/, @inject("JWTService") jwtService: JWTService) {
     this.userService = userService;
     //this.sessionService = sessionService;
     this.jwtService = jwtService;

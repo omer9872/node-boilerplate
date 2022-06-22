@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-import { IUser, UserRoles, UserStatus } from ".";
+import { IUser, UserRoles, UserStatus } from "./interfaces";
 
 export class User implements IUser {
   _id: ObjectId;

@@ -6,7 +6,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { IJWTService } from "@auth/index";
-import { ILoginUser } from "@models/index";
+import { ILoginUser } from "@user/index";
 
 @injectable()
 export class JWTService implements IJWTService {
