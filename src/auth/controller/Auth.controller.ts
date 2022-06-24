@@ -9,6 +9,7 @@ import { AuthService, IAuthService } from "@auth/index";
 import { ILoginUser, ILogoutUser, IRegisterUser } from "@user/index";
 
 import container from "../../container";
+import { loginUserValidator, registerUserValidator } from "@user/validators";
 
 @injectable()
 export class AuthController extends BaseController {
@@ -23,14 +24,20 @@ export class AuthController extends BaseController {
 
   login = async (req: Request, res: Response) => {
     const user: ILoginUser = req.body;
-    const token = await this.authService.login(user);
-    if (token) {
-      res.status(200).json({ token })
+    const { error } = loginUserValidator().validate(user);
+    if (error) {
+      res.status(400).json({ message: "invalid request body" })
     } else {
-      res.sendStatus(404)
+      const token = await this.authService.login(user);
+      if (token) {
+        res.status(200).json({ token })
+      } else {
+        res.sendStatus(404)
+      }
     }
   }
 
+  // can be useful when SessionService is activated...
   logout = (req: Request, res: Response) => {
     const user: ILogoutUser = req.body;
     this.authService.logout(req, user);
@@ -39,8 +46,13 @@ export class AuthController extends BaseController {
 
   register = (req: Request, res: Response) => {
     const user: IRegisterUser = req.body;
-    this.authService.register(user);
-    res.sendStatus(200)
+    const { error } = registerUserValidator().validate(user);
+    if (error) {
+      res.status(400).json({ message: "invalid request body" })
+    } else {
+      this.authService.register(user);
+      res.sendStatus(200)
+    }
   }
 
   get getControllerName() {

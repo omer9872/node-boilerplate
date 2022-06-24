@@ -1,7 +1,7 @@
 import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 
 import { BaseController } from '@base/controller'
 import { BaseRouter } from '@base/router'
@@ -9,8 +9,8 @@ import { BaseRouter } from '@base/router'
 @injectable()
 export class UserRouter extends BaseRouter {
 
-  static initRoutes = true;
-  static isAuth = true;
+  static initRoutes = false;
+  static isAuth = false;
 
   private path: string = "/user";
   router: Router;
@@ -20,11 +20,13 @@ export class UserRouter extends BaseRouter {
     super(routerName, controller, UserRouter.isAuth, UserRouter.initRoutes);
     this.router = this.getRoute();
     this.controller = controller;
+    this.extendRoutes();
   }
 
   extendRoutes() {
-    /* ...extend your routes... */
-    // this.router.get(...)
+    this.router.get('/', this.controller.get)
+    this.router.get('/:id', this.controller.getById)
+    this.router.put('/:id', this.controller.put)
   }
 
   getPath() {

@@ -3,12 +3,11 @@ import 'reflect-metadata';
 
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import chalk from 'chalk';
 
-import { UserService } from "@user/index";
-
+import { UserService, ILoginUser, ILogoutUser, IRegisterUser, User } from "@user/index";
 import { IAuthService } from "@auth/interfaces";
 import { JWTService } from "@auth/service/JWT.service";
-import { ILoginUser, ILogoutUser, IRegisterUser, User } from "@user/index";
 
 @injectable()
 export class AuthService implements IAuthService {
@@ -16,10 +15,12 @@ export class AuthService implements IAuthService {
   userService: UserService;
   //sessionService: SessionService;
   jwtService: JWTService;
-  constructor(@inject("UserService") userService: UserService/*, @inject(serviceTypes.SessionService) sessionService: SessionService*/, @inject("JWTService") jwtService: JWTService) {
+  /* you can change jwt service with session service or can use them both! */
+  constructor(@inject("UserService") userService: UserService, @inject("JWTService") jwtService: JWTService, @inject("AuthServiceName") serviceName: string) {
     this.userService = userService;
     //this.sessionService = sessionService;
     this.jwtService = jwtService;
+    console.log(chalk.yellow('Service:'), `${serviceName} initialized...`)
   }
 
   checkAuth = (req: Request, res: Response, next: NextFunction): any => {

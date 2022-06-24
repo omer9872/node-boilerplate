@@ -2,6 +2,7 @@ import { injectable, unmanaged } from "inversify";
 import "reflect-metadata";
 
 import { Router } from "express";
+import chalk from 'chalk';
 
 import { BaseController } from "@base/controller";
 import { AuthService, IAuthService } from "@auth/index";
@@ -29,6 +30,7 @@ export class BaseRouter implements IRouter {
     if (initializeRoutes && controller) {
       this.initRoutes();
     }
+    console.log(chalk.cyan('Router:'), `${routerPath} initialized...`)
   }
 
   private initAuth() {

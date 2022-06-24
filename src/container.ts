@@ -29,22 +29,21 @@ import { JWTService } from "@auth/service/JWT.service";
 const container = new Container();
 /* bind dependicies... */
 /* AUTH... */
-container.bind<IRouter>(AuthRouter.name).to(AuthRouter);
-container.bind<IController>(AuthController.name).to(AuthController);
-container.bind<IAuthService>(AuthService.name).to(AuthService);
-
-//container.bind<ISessionService>(authTypes.SessionService).to(SessionService);
+container.bind<IRouter>(AuthRouter.name).to(AuthRouter).inSingletonScope();;
+container.bind<IController>(AuthController.name).to(AuthController).inSingletonScope();;
+container.bind<IAuthService>(AuthService.name).to(AuthService).inSingletonScope();;
 container.bind<IJWTService>(JWTService.name).to(JWTService);
+//container.bind<ISessionService>(authTypes.SessionService).to(SessionService);
 
 /* User Feature... */
-container.bind<IRouter>(UserRouter.name).to(UserRouter);
-container.bind<IController>(UserController.name).to(UserController);
-container.bind<IService>(UserService.name).to(UserService);
+container.bind<IRouter>(UserRouter.name).to(UserRouter).inSingletonScope();
+container.bind<IController>(UserController.name).to(UserController).inSingletonScope();
+container.bind<IService>(UserService.name).to(UserService).inSingletonScope();
 container.bind<IMongoCollection>(UserCollection.name).to(UserCollection);
 /* Post Feature... */
-container.bind<IRouter>(PostRouter.name).to(PostRouter);
-container.bind<IController>(PostController.name).to(PostController);
-container.bind<IService>(PostService.name).to(PostService);
+container.bind<IRouter>(PostRouter.name).to(PostRouter).inSingletonScope();
+container.bind<IController>(PostController.name).to(PostController).inSingletonScope();
+container.bind<IService>(PostService.name).to(PostService).inSingletonScope();
 container.bind<IMongoCollection>(PostCollection.name).to(PostCollection);
 /* Repository... */
 container.bind<IMongoRepository>("MongoRepository").to(BaseMongoRepository);
@@ -63,6 +62,7 @@ container.bind<string>("UserCollectionName").toConstantValue("users");
 /* Auth Constants... */
 container.bind<string>("AuthControllerName").toConstantValue("auth-controller");
 container.bind<string>("AuthRouterName").toConstantValue("auth-router");
+container.bind<string>("AuthServiceName").toConstantValue("auth-service");
 
 container.bind<string>("MongoURL").toConstantValue(MongoURL);
 container.bind<string>("DBName").toConstantValue(DBName);

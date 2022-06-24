@@ -1,7 +1,8 @@
 import { injectable } from "inversify";
 import 'reflect-metadata';
 
-import { InsertOneResult, ModifyResult, ObjectId, WithId, Document } from "mongodb";
+import { InsertOneResult, ModifyResult, ObjectId, WithId } from "mongodb";
+import chalk from 'chalk';
 
 import { BaseMongoCollection } from "@base/repository/BaseMongo.collection";
 
@@ -13,10 +14,12 @@ export class BaseService implements IService {
   baseCollection: BaseMongoCollection;
   constructor(baseCollection: BaseMongoCollection, serviceName: string) {
     this.baseCollection = baseCollection;
+    console.log(chalk.yellow('Service:'), `${serviceName} initialized...`)
   }
 
   get = async <T>(page: number, count: number) => {
-    return await this.baseCollection.collection.find({}).toArray() as WithId<T>[];
+    const docs = await this.baseCollection.collection.find({}, { limit: page * count }).toArray() as WithId<T>[];
+    return docs.slice((page - 1) * count)
   };
   getOne = async <T>(id: ObjectId) => {
     return await this.baseCollection.collection.findOne({ _id: id }) as WithId<T>;
@@ -29,7 +32,7 @@ export class BaseService implements IService {
     }
   };
   update = async <T>(id: ObjectId, updatedFields: any) => {
-    return await this.baseCollection.collection.findOneAndUpdate({ _id: id }, { $set: { updatedFields } }) as unknown as ModifyResult<T>;
+    return await this.baseCollection.collection.findOneAndUpdate({ _id: id }, { $set: { ...updatedFields } }) as unknown as ModifyResult<T>;
   };
   delete = async <T>(id: ObjectId) => {
     return await this.baseCollection.collection.findOneAndDelete({ _id: id }) as unknown as ModifyResult<T>;

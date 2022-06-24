@@ -11,7 +11,7 @@ export interface IController {
   service: BaseService;
   get?: <T>(req: Request, res: Response) => any,
   getById?: <T>(req: Request, res: Response) => any,
-  insert?: <T>(req: Request, res: Response) => any,
-  update?: <T>(req: Request, res: Response) => any,
+  post?: <T>(req: Request, res: Response) => any,
+  put?: <T>(req: Request, res: Response) => any,
   delete?: <T>(req: Request, res: Response) => any,
 }

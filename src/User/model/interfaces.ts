@@ -6,6 +6,7 @@ export enum UserStatus {
   SUSPENDED = "suspended"
 }
 
+
 export enum UserRoles {
   ADMIN = "admin",
   USER = "user",
@@ -42,4 +43,8 @@ export interface IRegisterUser {
   lastName: string;
   email: string;
   password: string;
+}
+export interface IUpdateUser {
+  firstName: string;
+  lastName: string;
 }
