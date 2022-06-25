@@ -24,8 +24,15 @@ export class AuthService implements IAuthService {
   }
 
   checkAuth = (req: Request, res: Response, next: NextFunction): any => {
-    if (req.session?.email) {
-      next();
+    if (req.headers.authorization) {
+      const token = req.headers.authorization.split(' ')[1];
+      const userMail = this.jwtService.verifyToken(token);
+      if (userMail) {
+        res.locals.email = userMail;
+        next();
+      } else {
+        res.sendStatus(401);
+      }
     } else {
       res.sendStatus(401);
     }

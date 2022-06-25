@@ -27,7 +27,7 @@ export const loginUserValidator = () => (
 
 export const updateUserValidator = () => (
   Joi.object({
-    firstName: Joi.string().min(2).max(255).required(),
-    lastName: Joi.string().min(2).max(255).required(),
+    firstName: Joi.string().min(2).max(255),
+    lastName: Joi.string().min(2).max(255),
   })
 )

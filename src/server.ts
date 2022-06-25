@@ -10,6 +10,7 @@ import container from "./container";
 import { PostRouter } from "@post/index";
 import { UserRouter } from "@user/index";
 import { AuthRouter } from "@auth/index";
+import { IMailService, MailService } from "@utils/index";
 
 const authRouter = container.get<IRouter>(AuthRouter.name);
 const postRouter = container.get<IRouter>(PostRouter.name);
@@ -25,5 +26,7 @@ app.use(authRouter.getPath(), authRouter.getRoute())
 app.use(postRouter.getPath(), postRouter.getRoute())
 app.use(userRouter.getPath(), userRouter.getRoute())
 
-app.listen(serverPort, () => { console.log(chalk.green(`Server is running on port: ${serverPort}`)) })
+// initialize mail service...
+container.resolve<IMailService>(MailService);
 
+app.listen(serverPort, () => { console.log(chalk.green(`Server is running on port: ${serverPort}`)) })

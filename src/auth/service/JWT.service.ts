@@ -32,7 +32,7 @@ export class JWTService implements IJWTService {
       issuer: 'sample',
       audience: 'sample'
     }
-    jwt.verify(token, publicKey, verifyOptions, function (err, decoded: any): string | boolean {
+    return jwt.verify(token, publicKey, verifyOptions, function (err, decoded: any): string | boolean {
       if (err) return false;
       return decoded.email;
     });

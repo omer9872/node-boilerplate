@@ -10,7 +10,7 @@ import { BaseRouter } from '@base/router'
 export class UserRouter extends BaseRouter {
 
   static initRoutes = false;
-  static isAuth = false;
+  static isAuth = true;
 
   private path: string = "/user";
   router: Router;

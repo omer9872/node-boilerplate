@@ -17,14 +17,16 @@ import {
   UserService
 } from '@user/index';
 
-import { PostCollection, UserCollection } from "@collections/index";
-
-import { DBName, MongoURL } from "./ENV";
+import { PostCollection, UserCollection, MailCollection } from "@collections/index";
 
 import { AuthService, IAuthService, IJWTService } from "@auth/index";
 import { AuthRouter } from "@auth/router/Auth.router";
 import { AuthController } from "@auth/controller/Auth.controller";
 import { JWTService } from "@auth/service/JWT.service";
+
+import { IMailService, MailService } from "@utils/index";
+
+import { DBName, MongoURL } from "./ENV";
 
 const container = new Container();
 /* bind dependicies... */
@@ -34,6 +36,13 @@ container.bind<IController>(AuthController.name).to(AuthController).inSingletonS
 container.bind<IAuthService>(AuthService.name).to(AuthService).inSingletonScope();;
 container.bind<IJWTService>(JWTService.name).to(JWTService);
 //container.bind<ISessionService>(authTypes.SessionService).to(SessionService);
+
+/* Repository... */
+container.bind<IMongoRepository>("MongoRepository").to(BaseMongoRepository);
+
+/* SMTP service... */
+container.bind<IMailService>(MailService.name).to(MailService).inSingletonScope();;
+container.bind<IMongoCollection>(MailCollection.name).to(MailCollection);
 
 /* User Feature... */
 container.bind<IRouter>(UserRouter.name).to(UserRouter).inSingletonScope();
@@ -45,10 +54,15 @@ container.bind<IRouter>(PostRouter.name).to(PostRouter).inSingletonScope();
 container.bind<IController>(PostController.name).to(PostController).inSingletonScope();
 container.bind<IService>(PostService.name).to(PostService).inSingletonScope();
 container.bind<IMongoCollection>(PostCollection.name).to(PostCollection);
-/* Repository... */
-container.bind<IMongoRepository>("MongoRepository").to(BaseMongoRepository);
 
 // /* CONSTANTS... */
+/* Auth Constants... */
+container.bind<string>("AuthControllerName").toConstantValue("auth-controller");
+container.bind<string>("AuthRouterName").toConstantValue("auth-router");
+container.bind<string>("AuthServiceName").toConstantValue("auth-service");
+/* SMTP Constants... */
+container.bind<string>("MailServiceName").toConstantValue("mail-service");
+container.bind<string>("MailCollectionName").toConstantValue("mails");
 // /* Post Constants... */
 container.bind<string>("PostControllerName").toConstantValue("post-controller");
 container.bind<string>("PostRouterName").toConstantValue("post-router");
@@ -59,10 +73,6 @@ container.bind<string>("UserControllerName").toConstantValue("user-controller");
 container.bind<string>("UserRouterName").toConstantValue("user-router");
 container.bind<string>("UserServiceName").toConstantValue("user-service");
 container.bind<string>("UserCollectionName").toConstantValue("users");
-/* Auth Constants... */
-container.bind<string>("AuthControllerName").toConstantValue("auth-controller");
-container.bind<string>("AuthRouterName").toConstantValue("auth-router");
-container.bind<string>("AuthServiceName").toConstantValue("auth-service");
 
 container.bind<string>("MongoURL").toConstantValue(MongoURL);
 container.bind<string>("DBName").toConstantValue(DBName);
